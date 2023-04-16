@@ -36,7 +36,12 @@
           </template>
         </q-input>
         <div>
-          <q-btn label="Submit" type="submit" color="primary"/>
+          <q-btn
+            label="Submit"
+            type="submit"
+            color="primary"
+            class="q-ml-sm"
+          />
         </div>
       </q-form>
     </section>
@@ -261,8 +266,9 @@ export default defineComponent({
 
 <style scoped>
 .addButton {
-  min-width: 300px;
+  min-width: 16.75rem;
 }
+
 .inputWidth {
   width: calc(75dvw + 126px);
 }
@@ -272,6 +278,9 @@ export default defineComponent({
 }
 
 @media screen and (min-width: 1366px) {
+  .addButton {
+    min-width: 15rem;
+  }
 
   .inputWidth {
     min-width: calc(40dvw - 10rem);
@@ -283,6 +292,10 @@ export default defineComponent({
 }
 
 @media screen and (min-width: 1730px) {
+  .addButton {
+    min-width: 250px;
+  }
+
   .inputWidth {
     min-width: calc(12dvw + 32px);
   }
