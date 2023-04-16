@@ -35,6 +35,7 @@
         round
         color="gray"
         icon="edit"
+        class="q-ml-auto"
         @click="edit = true"
       />
       <q-btn
@@ -42,6 +43,7 @@
         round
         color="red"
         icon="delete"
+        class="q-mx-auto"
         @click="deleteDialog = true"
       />
     </q-card-actions>
