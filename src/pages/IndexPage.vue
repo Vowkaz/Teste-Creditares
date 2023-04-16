@@ -165,8 +165,9 @@ export default defineComponent({
         uf: address.uf.toUpperCase(),
         logradouro: address.logradouro,
       };
-      this.addresses.splice(address.index, 1);
-      this.addresses = [...this.addresses, updatedAddress];
+      this.addresses.splice(address.index, 0, updatedAddress);
+      this.addresses.splice(address.index + 1, 1);
+      // this.addresses = [...this.addresses, updatedAddress];
       localStorage.setItem('address', JSON.stringify(this.addresses));
       this.$q.notify({
         message: 'Endereço alterado com êxito.',
@@ -204,6 +205,13 @@ export default defineComponent({
           };
           this.addresses = [...this.addresses, apiAdress];
           localStorage.setItem('address', JSON.stringify(this.addresses));
+        })
+        .catch((err) => {
+          this.$q.notify({
+            message: `Erro ao gerar, ${err}!`,
+            position: 'top-right',
+            color: 'negative',
+          });
         });
     },
     findAddress() {
