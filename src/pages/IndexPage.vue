@@ -1,18 +1,18 @@
 <template>
   <q-page class="flex column">
-    <section class="q-pa-xl row items-center">
+    <section class="q-pa-xl row items-start">
       <q-btn
         outline
         align="around"
         color="green"
         icon="save"
-        class="q-mx-auto "
+        class="q-mx-auto q-mb-xs"
         label="Novo endereço"
         @click="add = true"
       />
       <q-form
         @submit="findAddress"
-        class="q-gutter-md row items-start q-mx-auto q-pa-lg">
+        class="q-gutter-md row items-start q-mx-auto">
         <q-input
           outlined dense
           debounce="300"
