@@ -6,13 +6,13 @@
         align="around"
         color="green"
         icon="save"
-        class="q-mx-auto q-mb-xs"
+        class="q-mx-auto q-mb-xs addButton"
         label="Novo endereço"
         @click="add = true"
       />
       <q-form
         @submit="findAddress"
-        class="q-gutter-md row items-start q-mx-auto">
+        class="q-gutter-y--md row items-start q-mx-auto">
         <q-input
           outlined dense
           debounce="300"
@@ -86,16 +86,18 @@
               label="Seu bairro"
               hint="Jardins"
             />
-            <div class="row">
+            <div class="row q-px-auto">
               <q-input
                 filled
                 v-model="localidade"
+                class="inputWidth"
                 label="Seu municipio"
                 hint="São Paulo"
               />
               <q-input
                 filled
                 v-model="uf"
+                class="inputWidth"
                 label="Sua UF"
                 mask="AA"
                 unmasked-value
@@ -256,3 +258,37 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.addButton {
+  min-width: 300px;
+}
+.inputWidth {
+  width: calc(75dvw + 126px);
+}
+
+.inputWidth:nth-child(2) {
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 1366px) {
+
+  .inputWidth {
+    min-width: calc(40dvw - 10rem);
+  }
+
+  .inputWidth:nth-child(2) {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 1730px) {
+  .inputWidth {
+    min-width: calc(12dvw + 32px);
+  }
+
+  .inputWidth:nth-child(2) {
+    margin-top: 1rem;
+  }
+}
+</style>

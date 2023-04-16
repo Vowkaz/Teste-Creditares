@@ -58,7 +58,7 @@
         <q-card-section>
           <q-form
             @submit="onSubmit"
-            class="q-gutter-md"
+            class="q-gutter-md justify-center"
           >
             <q-input
               filled
@@ -79,16 +79,18 @@
               label="Seu bairro"
               hint="Jardins"
             />
-            <div class="row">
+            <div class="row q-px-auto">
               <q-input
                 filled
                 v-model="updateLocalidade"
+                class="inputWidth"
                 label="Seu municipio"
                 hint="São Paulo"
               />
               <q-input
                 filled
                 v-model="updateUf"
+                class="inputWidth"
                 label="Sua UF"
                 mask="AA"
                 unmasked-value
@@ -207,8 +209,13 @@ export default {
   width: 100%;
   max-width: 400px;
 }
-
-@media screen and (min-width: 768px) {
+.inputWidth {
+  width: calc(75dvw + 126px);
+}
+.inputWidth:nth-child(2) {
+  margin-top: 1rem;
+}
+@media screen and (min-width: 1366px) {
   .my-card {
     display: flex;
     flex-direction: row;
@@ -217,6 +224,25 @@ export default {
 
   .cols {
     flex-direction: column;
+  }
+  .inputWidth {
+    min-width: calc(40dvw - 10rem);
+  }
+  .inputWidth:nth-child(2) {
+    margin-top: 1rem;
+  }
+}
+@media screen and (min-width: 1730px) {
+  .my-card {
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+  }
+  .inputWidth {
+    min-width: calc(12dvw + 32px);
+  }
+  .inputWidth:nth-child(2) {
+    margin-top: 1rem;
   }
 }
 </style>
