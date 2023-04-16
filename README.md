@@ -11,7 +11,7 @@ Instale as dependências
 ```bash
 yarn
 # ou
-npm instalar
+npm i
 
 ```
 Inicie o aplicativo no modo de desenvolvimento
