@@ -52,13 +52,6 @@
             Edite o endereço
           </div>
           <q-space/>
-          <q-btn
-            icon="close"
-            flat
-            round
-            dense
-            v-close-popup
-          />
         </q-card-section>
         <q-card-section>
           <q-form
