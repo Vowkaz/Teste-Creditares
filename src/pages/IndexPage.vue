@@ -24,15 +24,15 @@
         >
           <template
             v-slot:before>
-            <q-icon name="search"/>
-          </template>
-          <template
-            v-slot:append>
             <q-icon
               v-if="apiCep !== ''"
               name="close"
               @click="clearApiCep"
             />
+          </template>
+          <template
+            v-slot:append>
+            <q-icon name="search"/>
           </template>
         </q-input>
         <div>
