@@ -118,7 +118,6 @@
                 label="Salvar"
                 type="submit"
                 color="primary"
-                v-close-popup
               />
               <q-btn
                 label="Cancelar"
@@ -207,12 +206,14 @@ export default defineComponent({
           color: 'positive',
         });
         this.onReset();
+        this.add = false;
       } else {
         this.$q.notify({
           message: 'Endereço já está cadastrado.',
           position: 'top-right',
           color: 'positive',
         });
+        this.add = false;
         this.onReset();
       }
     },
