@@ -23,7 +23,7 @@
           hint="Cep: 12345/678"
         >
           <template
-            v-slot:before>
+            v-slot:append>
             <q-icon
               v-if="apiCep !== ''"
               name="close"
@@ -31,7 +31,7 @@
             />
           </template>
           <template
-            v-slot:append>
+            v-slot:prepend>
             <q-icon name="search"/>
           </template>
         </q-input>
@@ -77,7 +77,7 @@
               v-model="cep"
               label="Digite seu CEP"
               mask="#####-###"
-              hint="Cep: 12345/678"
+              hint="Cep: 12345-678"
             />
             <q-input
               filled
@@ -186,7 +186,7 @@ export default defineComponent({
       this.onReset();
     },
     onSubmit() {
-      this.index = this.addresses.findIndex((address) => address.cep === this.apiCep);
+      this.index = this.addresses.findIndex((address) => address.cep === this.cep);
       if (this.index === -1) {
         const setAddress = {
           cep: this.cep,
