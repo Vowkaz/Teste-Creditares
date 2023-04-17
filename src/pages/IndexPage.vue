@@ -75,9 +75,13 @@
             <q-input
               filled
               v-model="cep"
-              label="Digite seu CEP"
+              label="Digite seu CEP*"
               mask="#####-###"
               hint="Cep: 12345-678"
+              :rules="[
+                value => value.length <= 9 & value.length > 8
+                || 'Por favor escreva um cep de 8 digitos'
+                ]"
             />
             <q-input
               filled
