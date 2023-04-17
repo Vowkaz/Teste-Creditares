@@ -45,7 +45,7 @@
         </div>
       </q-form>
     </section>
-    <section class=" flex row justify-center">
+    <section class=" flex row justify-start q-mx-lg">
       <CardCEP
         class="q-ma-lg"
         v-for="(address,index) in addresses"
@@ -164,6 +164,7 @@ export default defineComponent({
         position: 'top-right',
         color: 'negative',
       });
+      this.onReset();
     },
     updateEvent(address) {
       const updatedAddress = {
@@ -182,10 +183,10 @@ export default defineComponent({
         position: 'top-right',
         color: 'edite',
       });
+      this.onReset();
     },
     onSubmit() {
       this.index = this.addresses.findIndex((address) => address.cep === this.apiCep);
-      console.log(this.index);
       if (this.index === -1) {
         const setAddress = {
           cep: this.cep,

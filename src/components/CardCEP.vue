@@ -206,7 +206,7 @@ export default {
 <style scoped>
 .my-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 390px;
 }
 .inputWidth {
   width: calc(75dvw + 126px);
