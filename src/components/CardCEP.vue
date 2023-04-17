@@ -162,7 +162,6 @@ export default {
     onSubmit() {
       this.updateEvent();
       // eslint-disable-next-line no-console
-      console.log(`valor do index = ${this.index}`);
     },
     deleteEvent() {
       this.$emit('delete-element', {

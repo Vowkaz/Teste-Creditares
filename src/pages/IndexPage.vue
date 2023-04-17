@@ -142,6 +142,7 @@ export default defineComponent({
   components: { CardCEP },
   data() {
     return {
+      index: '',
       cep: '',
       complemento: '',
       bairro: '',
@@ -183,21 +184,32 @@ export default defineComponent({
       });
     },
     onSubmit() {
-      const setAddress = {
-        cep: this.cep,
-        bairro: this.bairro,
-        localidade: this.localidade,
-        uf: this.uf.toUpperCase(),
-        logradouro: this.logradouro,
-      };
-      this.addresses = [...this.addresses, setAddress];
-      localStorage.setItem('address', JSON.stringify(this.addresses));
-      this.onReset();
-      this.$q.notify({
-        message: 'Endereço salvo com êxito.',
-        position: 'top-right',
-        color: 'positive',
-      });
+      this.index = this.addresses.findIndex((address) => address.cep === this.apiCep);
+      console.log(this.index);
+      if (this.index === -1) {
+        const setAddress = {
+          cep: this.cep,
+          bairro: this.bairro,
+          localidade: this.localidade,
+          uf: this.uf.toUpperCase(),
+          logradouro: this.logradouro,
+        };
+        this.addresses = [...this.addresses, setAddress];
+        localStorage.setItem('address', JSON.stringify(this.addresses));
+        this.$q.notify({
+          message: 'Endereço salvo com êxito.',
+          position: 'top-right',
+          color: 'positive',
+        });
+        this.onReset();
+      } else {
+        this.$q.notify({
+          message: 'Endereço já está cadastrado.',
+          position: 'top-right',
+          color: 'positive',
+        });
+        this.onReset();
+      }
     },
     onSubmitAPi() {
       axios
@@ -220,14 +232,15 @@ export default defineComponent({
             color: 'negative',
           });
         });
+      this.onReset();
     },
     findAddress() {
       if (this.apiCep === '') {
         this.addresses = JSON.parse(localStorage.getItem('address'));
         return;
       }
-      const index = this.addresses.findIndex((address) => address.cep === this.apiCep);
-      if (index === -1) {
+      this.index = this.addresses.findIndex((address) => address.cep === this.apiCep);
+      if (this.index === -1) {
         this.onSubmitAPi();
         this.$q.notify({
           message: 'Endereço não encontrado, gerando um novo!',
@@ -235,12 +248,13 @@ export default defineComponent({
           color: 'positive',
         });
       } else {
-        this.addresses = [this.addresses[index]];
+        this.addresses = [this.addresses[this.index]];
         this.$q.notify({
           message: 'Endereço encontrado com sucesso.',
           position: 'top-right',
           color: 'positive',
         });
+        this.onReset();
       }
     },
     clearApiCep() {
@@ -253,6 +267,7 @@ export default defineComponent({
       this.localidade = '';
       this.uf = '';
       this.bairro = '';
+      this.index = '';
     },
   },
   mounted() {
