@@ -2,51 +2,59 @@
   <q-card class="my-card rounded-borders"
           flat bordered
   >
-    <q-card-section>
-      <article class="q-pa-lg">
-        <div
-          v-if="cep"
-          class="text-h6"
+      <q-card-section>
+        <article
+          class="q-pa-lg"
         >
-          <p>
-            CEP: <label>{{ cep }}</label>
+          <div
+            v-if="cep"
+            class="text-h6"
+          >
+            <p>
+              CEP: <label>{{ cep }}</label>
+            </p>
+          </div>
+          <div
+            v-else
+            class="q-mb-lg"
+          >
+            CEP não foi encontrado
+          </div>
+          <p v-if="localidade">
+            {{ localidade }} / {{ uf }}.
           </p>
-        </div>
-        <div
-          v-else
-          class="q-mb-lg"
-        >
-          CEP não foi encontrado
-        </div>
-        <p v-if="localidade">
-          {{ localidade }} / {{ uf }}
-        </p>
-        <div v-if="logradouro">
-          {{ logradouro }}, {{ bairro }}
-        </div>
-        <div v-else>
-          Logradouro não foi encontrado
-        </div>
-      </article>
-    </q-card-section>
-    <q-card-actions class="justify-around items-center cols q-ml-auto bg-secondary">
-      <q-btn
-        flat
-        round
-        color="gray"
-        icon="edit"
-        class="q-ml-auto"
-        @click="edit = true"
-      />
-      <q-btn
-        flat
-        round
-        color="red"
-        icon="delete"
-        class="q-mx-auto"
-        @click="deleteDialog = true"
-      />
-    </q-card-actions>
+          <p v-else-if="uf">
+            {{ uf }}, Estado não foi encontrado.
+          </p>
+          <p v-else>
+            Estado e UF não foi encontrado.
+          </p>
+          <div v-if="logradouro">
+            {{ logradouro }}, {{ bairro }}
+          </div>
+          <div v-else>
+            Logradouro não foi encontrado
+          </div>
+        </article>
+      </q-card-section>
+      <q-card-actions class="justify-around items-center cols q-ml-auto bg-secondary">
+        <q-btn
+          flat
+          round
+          color="gray"
+          icon="edit"
+          class="q-ml-auto"
+          @click="edit = true"
+        />
+        <q-btn
+          flat
+          round
+          color="red"
+          icon="delete"
+          class="q-mx-auto"
+          @click="deleteDialog = true"
+        />
+      </q-card-actions>
     <q-dialog v-model="edit">
       <q-card>
         <q-card-section class="row items-center q-pb-none">
@@ -214,11 +222,10 @@ export default {
 .inputWidth:nth-child(2) {
   margin-top: 1rem;
 }
-@media screen and (min-width: 1366px) {
+@media screen and (min-width: 1280px) {
   .my-card {
     display: flex;
     flex-direction: row;
-    height: 200px;
   }
 
   .cols {

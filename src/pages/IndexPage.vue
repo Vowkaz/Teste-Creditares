@@ -1,26 +1,35 @@
 <template>
   <q-page class="flex column">
-    <section class="q-pa-xl row items-start">
+    <section class="q-py-lg row nav-address items-start">
       <q-btn
-        outline
+        push
         align="around"
         color="green"
         icon="save"
-        class="q-mx-auto q-mb-xs addButton"
+        class="q-mx-xl q-mb-md addButton"
         label="Novo endereço"
+        size="md"
+        padding="sm"
         @click="add = true"
       />
       <q-form
         @submit="findAddress"
-        class="q-gutter-y--md row items-start q-mx-auto">
+        class="q-gutter-y--md row items-start q-mx-xl">
         <q-input
           outlined dense
           debounce="300"
           v-model="apiCep"
-          placeholder="Procurar"
+          label="Procurar endereco"
+          class="q-mr-sm"
           name="apiCep"
+          style="min-width: 20rem"
           mask="#####-###"
-          hint="Cep: 12345/678"
+          hint="Cep:12345-678"
+          lazy-rules
+          :rules="[
+                value => value.length <= 9 & value.length > 8
+                || 'Por favor escreva um cep de 8 digitos'
+                ]"
         >
           <template
             v-slot:append>
@@ -37,17 +46,22 @@
         </q-input>
         <div>
           <q-btn
-            label="Submit"
+            push
+            size="md"
+            class="btnSubmit"
+            padding="sm"
+            label="Procurar"
             type="submit"
             color="primary"
-            class="q-ml-sm"
           />
         </div>
       </q-form>
     </section>
-    <section class=" flex row justify-start q-mx-lg">
+    <section
+      class="row q-gutter-lg q-mx-auto cardSection"
+    >
       <CardCEP
-        class="q-ma-lg"
+        class="col-12 col-sm-3"
         v-for="(address,index) in addresses"
         :key="address"
         :index="index"
@@ -165,7 +179,7 @@ export default defineComponent({
       this.$q.notify({
         message: 'Endereço removido com êxito.',
         position: 'top-right',
-        color: 'negative',
+        color: 'positive',
       });
       this.onReset();
     },
@@ -184,7 +198,7 @@ export default defineComponent({
       this.$q.notify({
         message: 'Endereço alterado com êxito.',
         position: 'top-right',
-        color: 'edite',
+        color: 'positive',
       });
       this.onReset();
     },
@@ -231,9 +245,9 @@ export default defineComponent({
           this.addresses = [...this.addresses, apiAdress];
           localStorage.setItem('address', JSON.stringify(this.addresses));
         })
-        .catch((err) => {
+        .catch(() => {
           this.$q.notify({
-            message: `Erro ao gerar, ${err}!`,
+            message: 'Erro durante cadastro, verifice o dado informado!',
             position: 'top-right',
             color: 'negative',
           });
@@ -249,7 +263,7 @@ export default defineComponent({
       if (this.index === -1) {
         this.onSubmitAPi();
         this.$q.notify({
-          message: 'Endereço não encontrado, gerando um novo!',
+          message: 'Endereço não encontrado, cadastrando um novo!',
           position: 'top-right',
           color: 'positive',
         });
@@ -286,10 +300,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.cardSection {
+  margin: 10px;
+  width: 85dvw;
+}
 .addButton {
   min-width: 16.75rem;
 }
-
+.btnSubmit{
+  margin-top: 0.25rem;
+}
 .inputWidth {
   width: calc(75dvw + 126px);
 }
@@ -298,9 +318,18 @@ export default defineComponent({
   margin-top: 1rem;
 }
 
-@media screen and (min-width: 1366px) {
+@media screen and (min-width: 1280px) {
+  .cardSection {
+    width: 100dvw;
+  }
+  .btnSubmit {
+    margin-top: 0;
+  }
   .addButton {
     min-width: 15rem;
+  }
+  .nav-address {
+    justify-content: space-around;
   }
 
   .inputWidth {
@@ -315,6 +344,11 @@ export default defineComponent({
 @media screen and (min-width: 1730px) {
   .addButton {
     min-width: 250px;
+  }
+  .cardSection {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80dvw;
   }
 
   .inputWidth {
